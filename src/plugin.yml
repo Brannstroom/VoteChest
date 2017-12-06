@@ -1,0 +1,6 @@
+name: VoteChest
+version: 2.0
+main: de.Gerrit.VoteChest.Main
+Authors: gerrybardo
+commands:
+ test:

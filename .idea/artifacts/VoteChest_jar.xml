@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VoteChest:jar">
+    <output-path>$USER_HOME$/Desktop/Minecraft/Server/plugins</output-path>
+    <root id="archive" name="VoteChest.jar">
+      <element id="module-output" name="VoteChest" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/Minecraft/Server/spigot-latest.jar" path-in-jar="/" />
+      <element id="library" level="project" name="spigot-latest" />
+    </root>
+  </artifact>
+</component>
