@@ -1,14 +1,11 @@
 package de.Gerrit.VoteChest;
 
-import de.Gerrit.VoteChest.Listener.ChestClickListener;
+
+import Utils.Utils;
+import de.Gerrit.VoteChest.Commands.MainCommand;
+import de.Gerrit.VoteChest.Listener.ChestListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * Created by gerritharmeling on 06.12.17.
@@ -25,45 +22,23 @@ public class Main extends JavaPlugin {
 
     }
     private void init(){
+       Utils utils = new Utils(this);
        registerEvents();
-
-        File folder = new File(this.getDataFolder() + "/");
-        if(!folder.exists())
-            folder.mkdir();
-
-        File jsonFile = new File(folder.getPath() + "/jsonFile.txt");
-        if(!jsonFile.exists()) {
-
-            try {
-
-                jsonFile.createNewFile();
-            } catch (IOException e) {
-
-            }
-        }
-
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Alter", 18);
-        jsonObject.put("Name", "Gerrit");
-
-
-        JSONArray company = new JSONArray();
-        company.add("Schule: Realschule Rhede");
-        company.add("Schule: Montesorie");
-
-        try (FileWriter file = new FileWriter(this.getDataFolder() + "/jsonFile.txt")) {
-            file.write(jsonObject.toJSONString());
-            System.out.println("Successfully Copied JSON Object to File...");
-            System.out.println("\nJSON Object: " + jsonObject);
-        } catch (IOException e){}
-
-
+       registerCommands();
+       loadConfig();
 
     }
     private void registerEvents(){
         //Chest ClickListener Event
-        Bukkit.getServer().getPluginManager().registerEvents(new ChestClickListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChestListener(), this);
 
+    }
+    private void registerCommands(){
+        MainCommand mainCommand = new MainCommand();
+        getCommand("VoteChest").setExecutor(mainCommand);
+    }
+    private void loadConfig(){
+        getConfig().options().copyDefaults(true);
+        saveConfig();
     }
 }
