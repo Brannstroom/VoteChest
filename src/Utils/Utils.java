@@ -1,16 +1,11 @@
-package Utils;
+package de.Gerrit.VoteChest.Utils;
 
 import de.Gerrit.VoteChest.Main;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 public class Utils {
 
     private static Main plugin;
+
     public static final String PREFIX = " §7[§3§LVoteChest§7]§f ";
     public static final String NOPERMISSIONS = PREFIX + "§c§LKeine Berechtigung";
     public static boolean voteChestCreationToggle = false;
@@ -21,6 +16,15 @@ public class Utils {
 
     public static final Main getPlugin(){
         return plugin;
+    }
+<<<<<<< Updated upstream:src/Utils/Utils.java
+
+    public static void saveChestLocationToPluginYml(Player p, Block placedBlock){
+        if (placedBlock.getType() == Material.CHEST) {
+            if (p.isOp() || p.hasPermission("VoteChest.Admin")) {
+                saveLocationToYaml(placedBlock.getX(), placedBlock.getY(), placedBlock.getZ(), p.getPlayer().getWorld().getName());
+            }
+        }
     }
 
     public static Location getVoteChestLocation(){
@@ -33,10 +37,10 @@ public class Utils {
     }
 
     public static void resetVoteChestLocation(){
-        saveChestLocationToYaml(0,0,0, "");
+        saveLocationToYaml(0,0,0, "");
     }
 
-    public static void saveChestLocationToYaml(double x, double y, double z, String world){
+    private static void saveLocationToYaml(double x, double y, double z, String world){
         getPlugin().getConfig().set("VoteChest.x", Double.valueOf(x));
         getPlugin().getConfig().set("VoteChest.y", Double.valueOf(y));
         getPlugin().getConfig().set("VoteChest.z", Double.valueOf(z));
@@ -44,3 +48,6 @@ public class Utils {
         getPlugin().saveConfig();
     }
 }
+=======
+}
+>>>>>>> Stashed changes:src/de/Gerrit/VoteChest/Utils/Utils.java

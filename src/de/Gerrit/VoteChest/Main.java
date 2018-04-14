@@ -1,15 +1,17 @@
 package de.Gerrit.VoteChest;
 
 
-import Utils.Utils;
+import de.Gerrit.VoteChest.Utils.Utils;
 import de.Gerrit.VoteChest.Commands.MainCommand;
-import de.Gerrit.VoteChest.Listener.ChestListener;
+import de.Gerrit.VoteChest.Listener.ChestBlockPlaceListener;
+import de.Gerrit.VoteChest.Listener.ChestInteractListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Created by gerritharmeling on 06.12.17.
  */
+
 public class Main extends JavaPlugin {
 
     public void onEnable(){
@@ -22,7 +24,7 @@ public class Main extends JavaPlugin {
 
     }
     private void init(){
-       Utils utils = new Utils(this);
+       new Utils(this);
        registerEvents();
        registerCommands();
        loadConfig();
@@ -30,14 +32,15 @@ public class Main extends JavaPlugin {
     }
     private void registerEvents(){
         //Chest ClickListener Event
-        Bukkit.getServer().getPluginManager().registerEvents(new ChestListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChestBlockPlaceListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChestInteractListener(), this);
 
     }
     private void registerCommands(){
         MainCommand mainCommand = new MainCommand();
         getCommand("VoteChest").setExecutor(mainCommand);
     }
-    private void loadConfig(){
+    private void loadConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
     }

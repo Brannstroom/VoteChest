@@ -1,0 +1,20 @@
+#Author: Nuno Facha (www.vexgames.net) - nuno@vexgames.net
+#For support and bug reports open a ticket at https://client.vexgames.net/submitticket.php?step=2&deptid=6&language=en
+#Official bukkit page: http://dev.bukkit.org/bukkit-plugins/keyvotechest/
+
+items: #list of items you want your players to get a random item from, DO NOT USE ITEMS FROM MODS OR YOU ***WILL CRASH YOUR SERVER!!***
+ - 1
+ - 2
+ - '35:4'
+
+itemname: 'Vote Key' #the name on the KEY item
+
+msg:
+ done: '��6Thanks for voting in this server!'
+ no_permission: '��4No permission!'
+ must_use_key: '��cYou must use a vote key to open this chest!'
+ vote_links: '��6Use this links to vote on the server and win prizes!'
+
+votelinks: #this links will be use on the /vote command
+ - 'http://vexgames.net'
+ - 'http://bukkit.org'
