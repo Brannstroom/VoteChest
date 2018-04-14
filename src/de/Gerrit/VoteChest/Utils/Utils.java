@@ -23,14 +23,6 @@ public class Utils {
         return plugin;
     }
 
-    public static void saveChestLocationToPluginYml(Player p, Block placedBlock){
-        if (placedBlock.getType() == Material.CHEST) {
-            if (p.isOp() || p.hasPermission("VoteChest.Admin")) {
-                saveLocationToYaml(placedBlock.getX(), placedBlock.getY(), placedBlock.getZ(), p.getPlayer().getWorld().getName());
-            }
-        }
-    }
-
     public static Location getVoteChestLocation(){
         double x = getPlugin().getConfig().getDouble("VoteChest.x");
         double y = getPlugin().getConfig().getDouble("VoteChest.y");
@@ -41,10 +33,10 @@ public class Utils {
     }
 
     public static void resetVoteChestLocation(){
-        saveLocationToYaml(0,0,0, "");
+        saveChestLocationToYaml(0,0,0, "");
     }
 
-    private static void saveLocationToYaml(double x, double y, double z, String world){
+    public static void saveChestLocationToYaml(double x, double y, double z, String world){
         getPlugin().getConfig().set("VoteChest.x", Double.valueOf(x));
         getPlugin().getConfig().set("VoteChest.y", Double.valueOf(y));
         getPlugin().getConfig().set("VoteChest.z", Double.valueOf(z));
