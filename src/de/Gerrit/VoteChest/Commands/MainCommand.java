@@ -1,7 +1,7 @@
 package de.Gerrit.VoteChest.Commands;
 
 import de.Gerrit.VoteChest.Listener.SuperChestListener;
-import de.Gerrit.VoteChest.Utils.Utils;
+import de.Gerrit.VoteChest.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,26 +18,27 @@ public class MainCommand implements CommandExecutor{
 
             switch (args.length) {
                 case 0:
-                    p.sendMessage(Utils.PREFIX + "/VoteChest help | Um alle Befehle anzuzeigen");
+                    p.sendMessage(Utils.PREFIX + "/VoteChest help | Shows a list of all VoteChest Commands");
                     break;
 
                 case 1:
                     if (p.hasPermission("VoteChest.Admin") || p.isOp()) {
                         if (args[0].equalsIgnoreCase("help")) {
-                            p.sendMessage(Utils.PREFIX + "1. /VoteChest create  | Wechselt zwischen dem VoteChest setzen " +
-                                    "Modus hin und her");
-                            p.sendMessage(Utils.PREFIX + "2. /VoteChest delete  | Löscht die VoteChest");
+                            p.sendMessage(Utils.PREFIX + "1. /VoteChest create  | Switches between, votechest placing and not placing mode");
+                            p.sendMessage(Utils.PREFIX + "2. /VoteChest delete  | Deletes the VoteChest");
+                            p.sendMessage(Utils.PREFIX + "3. /VoteChest reload  | Reloads the VoteChest Config");
+                            p.sendMessage(Utils.PREFIX + "4. /VoteChest giveKey <Player>  | Gives a Player a VoteChestKey");
                         }
 
                         if (args[0].equalsIgnoreCase("create")) {
                             if (p.hasPermission("VoteChest.Admin") || p.isOp()) {
-                                if (Utils.voteChestCreationToggle) {
-                                    Utils.voteChestCreationToggle = false;
-                                    p.sendMessage(Utils.PREFIX + "Du erstellst beim setzen einer Kiste nun keine VoteChest mehr");
+                                if (SuperChestListener.voteChestCreationToggle) {
+                                    SuperChestListener.voteChestCreationToggle = false;
+                                    p.sendMessage(Utils.PREFIX + "You no longer create a VoteChest when you place a Chest");
 
                                 } else {
-                                    Utils.voteChestCreationToggle = true;
-                                    p.sendMessage(Utils.PREFIX + "Du erstellst nun beim setzen einer Kiste eine VoteChest");
+                                    SuperChestListener.voteChestCreationToggle = true;
+                                    p.sendMessage(Utils.PREFIX + "You now create a VoteChest if you place a Chest");
                                 }
 
                             } else {
@@ -47,7 +48,7 @@ public class MainCommand implements CommandExecutor{
                         if (args[0].equalsIgnoreCase("delete")) {
                             if (p.hasPermission("VoteChest.Admin") || p.isOp()) {
                                 chestListener.resetVoteChestLocation();
-                                p.sendMessage("Die VoteChest wurde gelöscht");
+                                p.sendMessage(Utils.PREFIX + "VoteChest deleted");
                             } else {
                                 p.sendMessage(Utils.NOPERMISSIONS);
                             }
@@ -56,7 +57,7 @@ public class MainCommand implements CommandExecutor{
                         if (args[0].equalsIgnoreCase("reload")) {
                             if (p.hasPermission("VoteChest.Admin") || p.isOp()) {
                                 Utils.getPlugin().reloadConfig();
-                                p.sendMessage("Die Config wurde neu geladen");
+                                p.sendMessage(Utils.PREFIX + "Configuration reloaded");
                             } else {
                                 p.sendMessage(Utils.NOPERMISSIONS);
                             }
@@ -67,12 +68,13 @@ public class MainCommand implements CommandExecutor{
                     }
                     break;
                 case 2:
+                    //Falls der Command Sender ein Spieler ist
                     if (args[0].equalsIgnoreCase("giveKey")) {
                         if (p.hasPermission("VoteChest.Admin") || p.isOp()) {
                             try {
                                 new GiveVoteChestKey(args[1]);
                             }catch (NullPointerException exception){
-                                p.sendMessage(Utils.PREFIX + "Der Spieler ist nicht online");
+                                p.sendMessage(Utils.PREFIX + "Player not online");
                             }
                         } else {
                             p.sendMessage(Utils.NOPERMISSIONS);
@@ -81,6 +83,7 @@ public class MainCommand implements CommandExecutor{
                 break;
             }
 
+            //Falls der Command sender die Console ist
         } else {
             switch(args.length){
                 case 2:
@@ -88,7 +91,7 @@ public class MainCommand implements CommandExecutor{
                     try {
                         new GiveVoteChestKey(args[1]);
                     }catch (NullPointerException exception){
-                        System.out.println("Der Spieler ist nicht Online");
+                        System.out.println("Player not online");
                     }
                     }
                 break;

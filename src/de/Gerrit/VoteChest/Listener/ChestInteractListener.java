@@ -1,6 +1,6 @@
 package de.Gerrit.VoteChest.Listener;
 
-import de.Gerrit.VoteChest.Utils.Utils;
+import de.Gerrit.VoteChest.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,8 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
 
 public class ChestInteractListener extends SuperChestListener implements Listener {
 
@@ -20,27 +18,33 @@ public class ChestInteractListener extends SuperChestListener implements Listene
                 (chestClick.getAction() == Action.RIGHT_CLICK_BLOCK ? true : false)) != false) {
 
             if (chestClick.getClickedBlock().getType() == Material.CHEST) {
-                if (chestClick.getClickedBlock().getLocation().equals(getVoteChestLocation())) {
+                if (chestClick.getClickedBlock().getLocation().equals(Utils.getVoteChestLocationFromYaml())) {
                     chestClick.setCancelled(true);
                     if(isClickedItemAVaildVoteChestKey(chestClick.getPlayer())){
-                    chestClick.getPlayer().sendMessage(Utils.PREFIX + "VoteChest gedrückt");
 
-                    ArrayList<ItemStack> itemsToAddToInventory = getItemStackArrayList();
-                    for (int i = 0; i < getItemListSize(); i++) {
-                        chestClick.getPlayer().getInventory().addItem(itemsToAddToInventory.get(i));
+                        //Give Items to Player
+                        ItemStack itemStackThePlayerWon = getPlayersWonItemSTack();
+                        chestClick.getPlayer().getInventory().addItem(itemStackThePlayerWon);
+                        chestClick.getPlayer().updateInventory();
+                        chestClick.getPlayer().sendMessage(Utils.PREFIX + Utils.getPlugin().getConfig().
+                            getString("msg.won_message").replace("<item>", itemStackThePlayerWon.getType().toString()));
+
+
+                           chestClick.getPlayer().getInventory().removeItem(Utils.createVoteChestKey());
+
+                    } else {
+                        chestClick.getPlayer().sendMessage(Utils.PREFIX + Utils.getPlugin().getConfig().
+                                getString("msg.must_use_key"));
                     }
-                    chestClick.getPlayer().updateInventory();
-                } else {
-                        chestClick.getPlayer().sendMessage(Utils.PREFIX + "Du verwendest keinen gültigen Vote Schlüssel");
                     }
                 }
             }
         }
-    }
     private boolean isClickedItemAVaildVoteChestKey(Player player){
         try {
             if(player.getInventory().getItemInMainHand().getType().equals(Material.TRIPWIRE_HOOK)){
-                if(player.getInventory().getItemInMainHand().getItemMeta().getLore().contains("Vote Schlüssel")) {
+                if(player.getInventory().getItemInMainHand().getItemMeta().getLore().
+                        contains(Utils.getVoteKeyItemNameFromConfig())) {
                     return true;
                 }
             }

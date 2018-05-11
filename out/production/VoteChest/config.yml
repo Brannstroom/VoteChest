@@ -1,19 +1,25 @@
-#Author: Nuno Facha (www.vexgames.net) - nuno@vexgames.net
-#For support and bug reports open a ticket at https://client.vexgames.net/submitticket.php?step=2&deptid=6&language=en
-#Official bukkit page: http://dev.bukkit.org/bukkit-plugins/keyvotechest/
+#Author: gerrybardo
+#For support and bug reports open a Issue at https://github.com/gerrybardo/VoteChest
+#Official bukkit page: https://github.com/gerrybardo/VoteChest
 
-items: #list of items you want your players to get a random item from, DO NOT USE ITEMS FROM MODS OR YOU ***WILL CRASH YOUR SERVER!!***
- - 1
- - 2
- - '35:4'
+#USE '§<colorCode>' to add some Colors to your Text
+#ALWAYS THIS LAYOUT TO ADD ITEMS WITH avarage percentage / weighting to get won:
+# - <itemname> / <avarage percentage>
+
+items: #list of items with percentage change to get the item, ONLY USE ITEM NAMES NO ITEM ID
+ - wood / 20
+ - stone / 10
+ - diamond / 40
 
 itemname: 'Vote Key' #the name on the KEY item
 
 msg:
- done: '��6Thanks for voting in this server!'
- no_permission: '��4No permission!'
- must_use_key: '��cYou must use a vote key to open this chest!'
- vote_links: '��6Use this links to vote on the server and win prizes!'
+ done: 'Thanks for voting on this server!'
+ prefix: '§7[§3§LVoteChest§7]§f '
+ no_permission: '§c§LNo Permissions'
+ won_message: 'Congratulations you won a <item>' #<items> gets Replaced with the won itemname
+ must_use_key: '§cYou must use a vote key to open this chest!'
+ vote_links: '§cUse this links to vote on the server and win prizes!'
 
 votelinks: #this links will be use on the /vote command
  - 'http://vexgames.net'

@@ -1,5 +1,6 @@
 package de.Gerrit.VoteChest.Commands;
 
+import de.Gerrit.VoteChest.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,23 +20,12 @@ public class GiveVoteChestKey {
 
     }
 
-    private ItemStack createVoteChestKey(){
-        ItemStack voteChestKey = new ItemStack(Material.TRIPWIRE_HOOK);
-        ItemMeta meta = voteChestKey.getItemMeta();
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add("Vote Schlüssel");
-        meta.setLore(lore);
-        voteChestKey.setItemMeta(meta);
-        return voteChestKey;
-    }
 
     private void giveVoteChestKeyToPlayer() throws NullPointerException{
-        Player playerWhoGetsTheVoteChestKey = getPlayerbyPlayername(playername);
-        playerWhoGetsTheVoteChestKey.getInventory().addItem(createVoteChestKey());
+        Player playerWhoGetsTheVoteChestKey = Utils.getPlayerbyPlayername(playername);
+        playerWhoGetsTheVoteChestKey.getInventory().addItem(Utils.createVoteChestKey());
         playerWhoGetsTheVoteChestKey.updateInventory();
-    }
+        playerWhoGetsTheVoteChestKey.sendMessage(Utils.getPlugin().getConfig().getString(Utils.PREFIX + "msg.done"));
 
-    private Player getPlayerbyPlayername(String playername) {
-       return Bukkit.getPlayer(playername);
     }
 }

@@ -1,7 +1,6 @@
 package de.Gerrit.VoteChest;
 
 
-import de.Gerrit.VoteChest.Utils.Utils;
 import de.Gerrit.VoteChest.Commands.MainCommand;
 import de.Gerrit.VoteChest.Listener.ChestBlockPlaceListener;
 import de.Gerrit.VoteChest.Listener.ChestInteractListener;
@@ -15,19 +14,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 
     public void onEnable(){
-        System.out.print("VoteChest Plugin aktiviert");
+        System.out.print("VoteChest Plugin enabled");
         init();
     }
 
     public void onDisable(){
-        System.out.print("Plugin deaktiviert");
+        System.out.print("Plugin disabled");
 
     }
     private void init(){
-       new Utils(this);
+        loadConfig();
+        new Utils(this);
        registerEvents();
        registerCommands();
-       loadConfig();
+        setUtilsMessages();
 
     }
     private void registerEvents(){
@@ -43,5 +43,9 @@ public class Main extends JavaPlugin {
     private void loadConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
+    }
+    private void setUtilsMessages(){
+        Utils.PREFIX = Utils.getPlugin().getConfig().getString("msg.prefix");
+        Utils.NOPERMISSIONS = Utils.PREFIX + Utils.getPlugin().getConfig().getString("msg.no_permissions");
     }
 }
