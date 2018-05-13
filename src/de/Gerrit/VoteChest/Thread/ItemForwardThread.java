@@ -1,10 +1,11 @@
-package de.Gerrit.VoteChest.Listener;
+package de.Gerrit.VoteChest.Thread;
 
 import de.Gerrit.VoteChest.Utils;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,36 +13,42 @@ import java.util.Random;
 public class ItemForwardThread extends Thread{
 
     int time;
-    int timeValue;// Milliseconds
+    int timeValue = 50;
     Inventory votechestInventory;
     ArrayList<Integer> itemArray;
+    ArrayList<Integer> itemArrayCopy;
     int startPoint;
     int endPoint;
     int positionToStop;
     boolean firstTime = true;
     int itemIndex = 0;
     int maxAmount;
-    boolean running = true;
+    int diffToWonItem;
+    Player playerWhoPressedTheVoteChest;
 
-    public ItemForwardThread(int maxAmount, int positionToStop, int time, int timeValue, Inventory voteChestInventory, ArrayList<Integer> itemArray, int startPoint, int endPoint){
+    public ItemForwardThread(Player playWhoPressedTheVoteChest ,int maxAmount, int positionToStop, int time, Inventory voteChestInventory,
+                             ArrayList<Integer> itemArray, int startPoint, int endPoint){
+
         this.time = time;
-        this.timeValue = timeValue;
         this.votechestInventory = voteChestInventory;
         this.itemArray = itemArray;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.positionToStop = positionToStop;
         this.maxAmount = maxAmount;
-
+        this.playerWhoPressedTheVoteChest = playWhoPressedTheVoteChest;
+        itemArrayCopy = new ArrayList<>(itemArray);
     }
 
     public void run(){
 
+        //Add 6 Random Items to the End so that if the last item wins no IndexOutOfBoundException appears
         for(int i = 0; i < 6; i++){
             Random random = new Random();
             itemArray.add(random.nextInt(Utils.getItemListSize()));
         }
 
+        //add 3 Items Random to the beginning so that first item under the Hopper is the item with index 0
         for(int i = 0; i < 3; i++){
             Random random = new Random();
             itemArray.add(i, random.nextInt(Utils.getItemListSize()));
@@ -49,32 +56,8 @@ public class ItemForwardThread extends Thread{
 
         displayItemsFirst(itemArray);
 
-        positionToStop = 69;
-
-        System.out.print("ITEM DAS GEWONNEN WURDE" + positionToStop);
-
         for(int i = 0; i < positionToStop ; i++){
-
-            try {
-                Thread.sleep(timeValue);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if(firstTime){
-                itemForward(itemIndex, itemArray, startPoint, endPoint);
-                firstTime = false;
-            } else {
-                itemIndex ++;
-                itemForward(itemIndex, itemArray, startPoint, endPoint);
-            }
-            }
-
-        }
-        /*
-
-        while(running == true){
-            maxAmount --;
+            ItemFastForwardTime(i);
 
             try {
                 Thread.sleep(timeValue);
@@ -90,14 +73,24 @@ public class ItemForwardThread extends Thread{
                 itemForward(itemIndex, itemArray, startPoint, endPoint);
             }
 
-            if(maxAmount <= 1){
-                running = false;
+
             }
+        playerWhoPressedTheVoteChest.playSound(playerWhoPressedTheVoteChest.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 10, 1);
+        ItemStack itemStackThePlayerWon = new ItemStack(Material.getMaterial(Utils.getPlugin().getConfig().
+                getStringList("items").get(itemArrayCopy.get(positionToStop)).split("/")[0].
+                replaceAll(" ", "").toUpperCase()), 1);
+
+        playerWhoPressedTheVoteChest.getInventory().addItem(itemStackThePlayerWon);
+
+
+        playerWhoPressedTheVoteChest.sendMessage(Utils.PREFIX + Utils.getPlugin().getConfig().
+                getString("msg.won_message").replace("<item>", itemStackThePlayerWon.getType().toString()));
+
+        playerWhoPressedTheVoteChest.updateInventory();
+
 
         }
 
-    }
-       */
     private void itemForward(int itemIndex, ArrayList<Integer> ItemArray, int startPoint, int endpoint){
         for(int i = startPoint; i < endpoint; i++){
 
@@ -119,6 +112,27 @@ public class ItemForwardThread extends Thread{
 
             counter++; // Counter counts to 6 with 0 so to 7
         }
+    }
+    private void ItemFastForwardTime(int currentPosition){
+        diffToWonItem = positionToStop - currentPosition;
+        int percentage = ((diffToWonItem * 100) / positionToStop);
 
+        if(percentage <=75 && percentage >= 15) {
+            timeValue = 100;
+
+        } else if(percentage <=15 && percentage >= 10){
+            timeValue = 200;
+        } else if(percentage <=10 && percentage >= 7){
+            timeValue = 300;
+        } else if(percentage <=7 && percentage >=5){
+            timeValue = 700;
+        } else if(percentage <=5 && percentage >=3){
+            timeValue = 800;
+        } else if(percentage <=3 && percentage >= 1) {
+            timeValue = 1100;
+        }
+
+
+        System.out.println((diffToWonItem * 100) / positionToStop);
     }
 }
