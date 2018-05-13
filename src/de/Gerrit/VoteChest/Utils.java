@@ -72,5 +72,13 @@ public class Utils {
         voteChestKey.setAmount(1);
         return voteChestKey;
     }
+
+    /**
+     * Method to get the Amount of Items in the Config List
+     * @return the Amount of Items contained in the Config
+     */
+    public static int getItemListSize() {
+        return Utils.getPlugin().getConfig().getStringList("items").size();
+    }
 }
 

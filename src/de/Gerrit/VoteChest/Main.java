@@ -4,6 +4,7 @@ package de.Gerrit.VoteChest;
 import de.Gerrit.VoteChest.Commands.MainCommand;
 import de.Gerrit.VoteChest.Listener.ChestBlockPlaceListener;
 import de.Gerrit.VoteChest.Listener.ChestInteractListener;
+import de.Gerrit.VoteChest.Listener.ChestInventoryCancelPlayerItemPickupListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,6 +35,7 @@ public class Main extends JavaPlugin {
         //Chest ClickListener Event
         Bukkit.getServer().getPluginManager().registerEvents(new ChestBlockPlaceListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new ChestInteractListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChestInventoryCancelPlayerItemPickupListener(), this);
 
     }
     private void registerCommands(){

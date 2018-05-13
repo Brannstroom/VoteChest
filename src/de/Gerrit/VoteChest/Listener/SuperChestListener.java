@@ -22,10 +22,7 @@ public class SuperChestListener {
         Utils.saveVoteChestLocationToYaml(0, 0, 0, "");
     }
 
-    /**
-     * Method to return the items that the player gets when he pressed the VoteChest
-     * @return ArrayList of ItemsStacks Containing the items that will be given to the Player
-     */
+   /*
     protected ItemStack getPlayersWonItemSTack() {
             currentItemListSize = getItemListSize();
 
@@ -34,14 +31,9 @@ public class SuperChestListener {
                         replaceAll(" ", "").toUpperCase()), 1));
 
     }
+    */
 
-    /**
-     * Method to get the Amount of Items in the Config List
-     * @return the Amount of Items contained in the Config
-     */
-    protected int getItemListSize() {
-        return Utils.getPlugin().getConfig().getStringList("items").size();
-    }
+
 
     /*
 
@@ -66,23 +58,13 @@ public class SuperChestListener {
     */
 
 
-    private int getItemIndexByChance(){
+    protected int getArrayIndexByChance(int amount, ArrayList<Integer> percentageVariationArray){
 
-        int amount = 0;
-        int[] percentage = new int[getItemListSize()];
+        int[] percentage = new int[Utils.getItemListSize()];
 
-        for(int i = 0; i < getItemListSize(); i++){
-            int numberToGetFromConfig = Integer.valueOf(Utils.getPlugin().getConfig().getStringList("items").
-                    get(i).split("/")[1].replaceAll(" ", ""));
-
-            percentage[i] = numberToGetFromConfig;
-            amount += numberToGetFromConfig;
-        }
-
-        ArrayList<Integer> percentageVariationArray = new ArrayList();
 
         int currentNumber = 0;
-        for(int i = 0; i < getItemListSize(); i ++){
+        for(int i = 0; i < Utils.getItemListSize(); i ++){
 
 
             for(int c = 0; c < percentage[i]; c ++){
@@ -92,7 +74,9 @@ public class SuperChestListener {
         }
 
         Random random = new Random();
-        return percentageVariationArray.get(random.nextInt(amount));
+        return random.nextInt(amount);
+
+        //percentageVariationArray.get(random.nextInt(amount));
 
     }
 }

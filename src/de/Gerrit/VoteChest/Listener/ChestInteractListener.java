@@ -1,5 +1,6 @@
 package de.Gerrit.VoteChest.Listener;
 
+import de.Gerrit.VoteChest.Components.VoteChestInventory;
 import de.Gerrit.VoteChest.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,15 +23,17 @@ public class ChestInteractListener extends SuperChestListener implements Listene
                     chestClick.setCancelled(true);
                     if(isClickedItemAVaildVoteChestKey(chestClick.getPlayer())){
 
+
                         //Give Items to Player
-                        ItemStack itemStackThePlayerWon = getPlayersWonItemSTack();
+                        ItemStack itemStackThePlayerWon = new ItemStack(Material.WOOD); // REMOVE
                         chestClick.getPlayer().getInventory().addItem(itemStackThePlayerWon);
-                        chestClick.getPlayer().updateInventory();
                         chestClick.getPlayer().sendMessage(Utils.PREFIX + Utils.getPlugin().getConfig().
                             getString("msg.won_message").replace("<item>", itemStackThePlayerWon.getType().toString()));
 
-
+                            chestClick.getPlayer().updateInventory();
                            chestClick.getPlayer().getInventory().removeItem(Utils.createVoteChestKey());
+
+                           new VoteChestInventory(chestClick.getPlayer(), 2, 5);
 
                     } else {
                         chestClick.getPlayer().sendMessage(Utils.PREFIX + Utils.getPlugin().getConfig().

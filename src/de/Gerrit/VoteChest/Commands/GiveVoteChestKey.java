@@ -20,12 +20,11 @@ public class GiveVoteChestKey {
 
     }
 
-
     private void giveVoteChestKeyToPlayer() throws NullPointerException{
         Player playerWhoGetsTheVoteChestKey = Utils.getPlayerbyPlayername(playername);
         playerWhoGetsTheVoteChestKey.getInventory().addItem(Utils.createVoteChestKey());
+        playerWhoGetsTheVoteChestKey.sendMessage(Utils.PREFIX + Utils.getPlugin().getConfig().getString( "msg.done"));
         playerWhoGetsTheVoteChestKey.updateInventory();
-        playerWhoGetsTheVoteChestKey.sendMessage(Utils.getPlugin().getConfig().getString(Utils.PREFIX + "msg.done"));
 
     }
 }
