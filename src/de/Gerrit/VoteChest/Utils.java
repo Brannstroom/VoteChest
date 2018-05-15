@@ -37,12 +37,18 @@ public class Utils {
     }
 
     public static Location getVoteChestLocationFromYaml(){
-        double x = getPlugin().getConfig().getDouble("VoteChest.x");
-        double y = getPlugin().getConfig().getDouble("VoteChest.y");
-        double z = getPlugin().getConfig().getDouble("VoteChest.z");
-        World w =  Bukkit.getWorld(getPlugin().getConfig().getString("VoteChest.world"));
+        try {
+            double x = getPlugin().getConfig().getDouble("VoteChest.x");
+            double y = getPlugin().getConfig().getDouble("VoteChest.y");
+            double z = getPlugin().getConfig().getDouble("VoteChest.z");
+            World w = Bukkit.getWorld(getPlugin().getConfig().getString("VoteChest.world"));
 
-        return new Location(w, x, y, z);
+
+            return new Location(w, x, y, z);
+        } catch(IllegalArgumentException exception){
+        }
+
+       return null;
     }
 
     public static void saveVoteChestLocationToYaml(double x, double y, double z, String world){

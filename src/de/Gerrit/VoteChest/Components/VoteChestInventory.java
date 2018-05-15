@@ -1,7 +1,7 @@
 package de.Gerrit.VoteChest.Components;
 
-import de.Gerrit.VoteChest.Thread.ItemForwardThread;
 import de.Gerrit.VoteChest.Listener.SuperChestListener;
+import de.Gerrit.VoteChest.Thread.ItemForwardThread;
 import de.Gerrit.VoteChest.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,8 +18,6 @@ public class VoteChestInventory extends SuperChestListener {
     private Inventory voteChestInventory;
     private ItemStack outerVoteChestInventoryItemStack;
     private ItemStack winSelecterItemStack;
-
-
 
     public VoteChestInventory(Player playerWhoClickedTheVoteChest) {
         this.player = playerWhoClickedTheVoteChest;
@@ -71,8 +69,6 @@ public class VoteChestInventory extends SuperChestListener {
             voteChestInventory.setItem(i, outerVoteChestInventoryItemStack);
         }
     }
-
-    //11 - 16
 
     private void rolling() {
         int amount = 0;

@@ -36,10 +36,10 @@ public class ChestInteractListener extends SuperChestListener implements Listene
                         chestClick.getPlayer().sendMessage(Utils.PREFIX + Utils.getPlugin().getConfig().
                                 getString("msg.must_use_key"));
                     }
-                    }
                 }
             }
         }
+    }
     private boolean isClickedItemAVaildVoteChestKey(Player player){
         try {
             if(player.getInventory().getItemInMainHand().getType().equals(Material.TRIPWIRE_HOOK)){

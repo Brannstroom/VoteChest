@@ -1,26 +1,24 @@
-#Author: gerrybardo
-#For support and bug reports open a Issue at https://github.com/gerrybardo/VoteChest
-#Official bukkit page: https://github.com/gerrybardo/VoteChest
+# - Author: gerrybardo
+# - For support and bug reports open a Issue at https://github.com/gerrybardo/VoteChest
+# - Official bukkit page: https://github.com/gerrybardo/VoteChest
 
-#USE '§<colorCode>' to add some Colors to your Text
-#ALWAYS THIS LAYOUT TO ADD ITEMS WITH avarage percentage / weighting to get won:
-# - <itemname> / <avarage percentage>
-
-items: #list of items with percentage change to get the item, ONLY USE ITEM NAMES NO ITEM ID
+# - The algorithm randomly chooses an item which can be influenced by the weighting of the items
+# - All weights of the items together make up 100%, then the percentage chance of winning an item is calculated based on its weighting relative to the 100%
+# - USE '§<colorCode>' to add some Colors to your Text
+# - ALWAYS USE THIS LAYOUT TO ADD ITEMS WITH avarage percentage / weighting to get won:
+# - <itemname> / <Weigningt of the Item>
+# - list of items with percentage change to get the item, ONLY USE ITEM NAMES NO ITEM ID
+# - Use <item> in the won_Message to display the ItemName
+items:
  - wood / 20
  - stone / 10
  - diamond / 40
 
-itemname: 'Vote Key' #the name on the KEY item
+itemname: 'Vote Key'
 
 msg:
  done: 'Thanks for voting on this server!'
  prefix: '§7[§3§LVoteChest§7]§f '
  no_permission: '§c§LNo Permissions'
- won_message: 'Congratulations you won a <item>' #<items> gets Replaced with the won itemname
+ won_message: 'Congratulations you won a <item>'
  must_use_key: '§cYou must use a vote key to open this chest!'
- vote_links: '§cUse this links to vote on the server and win prizes!'
-
-votelinks: #this links will be use on the /vote command
- - 'http://vexgames.net'
- - 'http://bukkit.org'
