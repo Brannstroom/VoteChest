@@ -18,7 +18,7 @@ itemname: 'Vote Key'
 
 msg:
  done: 'Thanks for voting on this server!'
- prefix: '§7[§3§LVoteChest§7]§f '
+ prefix: '§7[§3§LVoteChest§7]§f'
  no_permission: '§c§LNo Permissions'
  won_message: 'Congratulations you won a <item>'
  must_use_key: '§cYou must use a vote key to open this chest!'

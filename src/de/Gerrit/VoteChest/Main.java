@@ -48,6 +48,6 @@ public class Main extends JavaPlugin {
     }
     private void setUtilsMessages(){
         Utils.PREFIX = Utils.getPlugin().getConfig().getString("msg.prefix");
-        Utils.NOPERMISSIONS = Utils.PREFIX + Utils.getPlugin().getConfig().getString("msg.no_permissions");
+        Utils.NOPERMISSIONS = Utils.PREFIX + Utils.getPlugin().getConfig().getString("msg.no_permission");
     }
 }
