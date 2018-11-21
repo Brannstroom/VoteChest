@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="VoteChest:jar">
-    <output-path>$USER_HOME$/Desktop/Minecraft/Server/plugins</output-path>
-    <root id="archive" name="VoteChest.jar">
-      <element id="module-output" name="VoteChest" />
-    </root>
-  </artifact>
-</component>
