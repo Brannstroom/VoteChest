@@ -25,8 +25,8 @@ public class ChestInteractListener extends SuperChestListener implements Listene
 
 
                         //Give Items to Player
-                        ItemStack itemStackThePlayerWon = new ItemStack(Material.WOOD); // REMOVE
-                        chestClick.getPlayer().getInventory().addItem(itemStackThePlayerWon);
+                       // ItemStack itemStackThePlayerWon = new ItemStack(Material.OAK_WOOD); // REMOVE
+                      //  chestClick.getPlayer().getInventory().addItem(itemStackThePlayerWon);
 
                            chestClick.getPlayer().getInventory().removeItem(Utils.createVoteChestKey());
 

@@ -11,7 +11,11 @@ public class ChestInventoryCancelPlayerItemPickupListener implements Listener{
 
     @EventHandler
     public void onPlayerChestClickEvent(InventoryClickEvent chestClick) {
-        if(chestClick.getInventory().getName().equalsIgnoreCase(Utils.PREFIX)){
+
+
+        String titel  = chestClick.getInventory().getTitle() + "§f";
+
+        if(titel.equalsIgnoreCase(Utils.PREFIX)){
             chestClick.getResult();
             chestClick.setResult(Event.Result.DENY);
         }

@@ -41,7 +41,7 @@ public class VoteChestInventory extends SuperChestListener {
     }
 
     private void createOuterVoteChestInventoryItemStack() {
-        outerVoteChestInventoryItemStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 14);
+        outerVoteChestInventoryItemStack = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
         ItemMeta meta = outerVoteChestInventoryItemStack.getItemMeta();
         meta.setDisplayName(" ");
         meta.setLore(null);
