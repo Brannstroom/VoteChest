@@ -5,6 +5,7 @@ import de.Gerrit.VoteChest.Commands.MainCommand;
 import de.Gerrit.VoteChest.Listener.ChestBlockPlaceListener;
 import de.Gerrit.VoteChest.Listener.ChestInteractListener;
 import de.Gerrit.VoteChest.Listener.ChestInventoryCancelPlayerItemPickupListener;
+import de.Gerrit.VoteChest.Thread.Updater;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,6 +25,9 @@ public class Main extends JavaPlugin {
 
     }
     private void init(){
+        Updater updater = new Updater();
+        updater.start();
+
         loadConfig();
         new Utils(this);
        registerEvents();
